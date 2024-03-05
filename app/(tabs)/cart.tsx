@@ -3,6 +3,7 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
+import { HeaderComponent } from "../Components/Header";
 
 export default function CartPage() {
   const inset = useSafeAreaInsets();
@@ -10,9 +11,7 @@ export default function CartPage() {
   return (
     <SafeAreaView style={[styles.container, { paddingTop: inset.top }]}>
       <ScrollView contentContainerStyle={styles.container}>
-        <View>
-          <Text>Cart Screen</Text>
-        </View>
+        <HeaderComponent canGoBack={false} label="Cart" />
       </ScrollView>
     </SafeAreaView>
   );

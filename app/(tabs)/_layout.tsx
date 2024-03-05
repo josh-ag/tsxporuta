@@ -1,9 +1,16 @@
 import { Tabs } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Keyboard,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Feather } from "@expo/vector-icons";
+import Feather from "@expo/vector-icons/Feather";
 import { StatusBar } from "expo-status-bar";
+import { useEffect, useState } from "react";
 
 const TabBar = ({ state, descriptors, navigation }: any) => {
   return (
@@ -82,7 +89,7 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
               </Svg>
             ) : route.name === "account" ? (
               <Feather
-                name={"user"}
+                name="user"
                 size={24}
                 color={isFocused ? "#DB3C25" : "#858585"}
               />
@@ -142,11 +149,35 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
 
 //Root layout
 export default function TabLayout() {
+  const [showKeyboard, setShowKeyboard] = useState<Boolean>(false);
+
+  useEffect(() => {
+    const showKeyboarSubscription = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setShowKeyboard(true);
+      }
+    );
+    const removeKeyboardSubscription = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setShowKeyboard(false);
+      }
+    );
+
+    return () => {
+      showKeyboarSubscription.remove();
+      removeKeyboardSubscription.remove();
+    };
+  });
+
   return (
     <>
       <SafeAreaProvider>
         <Tabs
-          tabBar={(props) => <TabBar {...props} />}
+          initialRouteName="menu"
+          backBehavior="none"
+          tabBar={showKeyboard ? () => null : (props) => <TabBar {...props} />}
           screenOptions={{ headerShown: false }}
         >
           <Tabs.Screen name="index" />
