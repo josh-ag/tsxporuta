@@ -152,12 +152,14 @@ export default function TabLayout() {
   const [showKeyboard, setShowKeyboard] = useState<Boolean>(false);
 
   useEffect(() => {
+    //@show tabbar when keyboard hides
     const showKeyboarSubscription = Keyboard.addListener(
       "keyboardDidShow",
       () => {
         setShowKeyboard(true);
       }
     );
+    //@hide tabbar when keyboard shows
     const removeKeyboardSubscription = Keyboard.addListener(
       "keyboardDidHide",
       () => {
@@ -165,6 +167,7 @@ export default function TabLayout() {
       }
     );
 
+    //@unsubscribe
     return () => {
       showKeyboarSubscription.remove();
       removeKeyboardSubscription.remove();
@@ -191,6 +194,7 @@ export default function TabLayout() {
   );
 }
 
+//@stylesheet
 const styles = StyleSheet.create({
   tabBarStyle: {
     flexDirection: "row",

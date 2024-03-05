@@ -1,5 +1,6 @@
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
+import { AppContextProvider } from "../context/appContext";
 
 export default function RootLayout() {
   //@load font
@@ -20,9 +21,11 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="(tabs)" />
-      <Stack.Screen name="products/[id]" />
-    </Stack>
+    <AppContextProvider>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="products/[id]" />
+      </Stack>
+    </AppContextProvider>
   );
 }

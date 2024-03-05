@@ -1,16 +1,15 @@
 import { ScrollView, View, Text, StyleSheet } from "react-native";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { HeaderComponent } from "../Components/Header";
 
 export default function HomePage() {
-  const inset = useSafeAreaInsets();
-
   return (
-    <SafeAreaView style={[styles.container, { paddingTop: inset.top }]}>
-      <ScrollView contentContainerStyle={styles.container}>
+    <SafeAreaView style={[styles.container]}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+      >
         <HeaderComponent canGoBack={false} label="Home" />
       </ScrollView>
     </SafeAreaView>
@@ -22,5 +21,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     minHeight: "100%",
+  },
+  scrollContainer: {
+    width: "100%",
   },
 });

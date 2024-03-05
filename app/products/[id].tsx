@@ -1,23 +1,29 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import { ScrollView, View, Text, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { HeaderComponent } from "../Components/Header";
+import { router } from "expo-router";
 
-export  default function ProductDetails(){
-
-  const inset = useSafeAreaInsets();
-
-  return <SafeAreaView>
-    <ScrollView style={[styles.container, {paddingTop: inset.top}]}>>
-      <View>
-        <Text>Product Details Here</Text>
-      </View>
-    </ScrollView>
-  </SafeAreaView>
+export default function ProductsDetailsPage() {
+  return (
+    <SafeAreaView style={[styles.container]}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+      >
+        <HeaderComponent canGoBack={router.canGoBack()} onPress={router.back} />
+      </ScrollView>
+    </SafeAreaView>
+  );
 }
 
-// @styles 
-const styles =  StyleSheet.create({
-  container:{
-    flex:1,
-    backgroundColor: '#fff',
-  }
-})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    minHeight: "100%",
+  },
+  scrollContainer: {
+    width: "100%",
+  },
+});

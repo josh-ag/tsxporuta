@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     fontSize: 14,
     borderRadius: 8,
-    letterSpacing: 1.5,
+    letterSpacing: 1.2,
   },
 
   searchIcon: {
