@@ -141,7 +141,7 @@ export const ProductItem = ({ item }: { item: MenuType }) => {
         </View>
 
         <View style={styles.accordionContainer}>
-          {/* <List.AccordionGroup>
+          <List.AccordionGroup>
             {lists.map((list: any) => (
               <List.Accordion
                 rippleColor={"transparent"}
@@ -171,7 +171,7 @@ export const ProductItem = ({ item }: { item: MenuType }) => {
                 />
               </List.Accordion>
             ))}
-          </List.AccordionGroup> */}
+          </List.AccordionGroup>
         </View>
 
         <View
