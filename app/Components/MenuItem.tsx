@@ -4,11 +4,18 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { router } from "expo-router";
 
 export const MenuItem = ({ item }: { item: MenuType }) => {
+  const itemObj = JSON.stringify(item);
+
   return (
     <TouchableOpacity
       activeOpacity={1}
       style={styles.menuItem}
-      onPress={() => router.navigate("products/" + item.id)}
+      onPress={() =>
+        router.push({
+          pathname: "products/[id]",
+          params: { item: itemObj, id: item.id },
+        })
+      }
     >
       <View style={styles.menuItemHeader}>
         <TouchableOpacity activeOpacity={1}>
@@ -169,17 +176,20 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 16,
   },
+
   itemTextContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
+
   menuItemButton: {
     flexDirection: "row",
     backgroundColor: "#DB3C25",
     alignItems: "center",
     justifyContent: "center",
     height: 40,
+    width: "100%",
     paddingVertical: 12,
     borderRadius: 50,
   },

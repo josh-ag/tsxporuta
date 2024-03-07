@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { MenuType } from "../../type";
+import { useRef } from "react";
+import { ProductPropType } from "../../type";
 import {
   Image,
   LogBox,
@@ -10,16 +10,25 @@ import {
 } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import Carousel from "react-native-snap-carousel";
+import { TruncatedText } from "./TruncatedText";
+import { AccordionGroup } from "./AccordionGroup";
 
 // @ignore all logs
 LogBox.ignoreAllLogs();
 
 // @Product card component
-export const ProductItem = ({ item }: { item: MenuType }) => {
-  const [activeSlide, setActiveSlide] = useState(0);
+export const ProductItem = ({
+  item,
+  activeSlide,
+  setActiveSlide,
+  isExpanded,
+  setIsExpanded,
+}: ProductPropType) => {
+  const Item = JSON.parse(item);
 
   // @carousel refs
   const carouselRefs = useRef(null);
+
   //render carousel image
   const _renderItem = ({ item, index }: any) => {
     return (
@@ -29,58 +38,12 @@ export const ProductItem = ({ item }: { item: MenuType }) => {
     );
   };
 
-  const RenderTruncatedText = ({ text }: { text: string }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
-
-    const truncatedText = isExpanded ? text : `${text.substring(0, 100)}...`;
-
-    return (
-      <View style={styles.truncatedTextContainer}>
-        <Text
-          style={[
-            styles.text,
-            {
-              fontWeight: "400",
-              fontFamily: "Poppins-Regular",
-              fontSize: 12,
-              color: "#4A4A4A",
-              lineHeight: 18,
-            },
-          ]}
-        >
-          {truncatedText}
-          {!isExpanded && (
-            // <TouchableOpacity
-            //   activeOpacity={1}
-            //   onPress={() => setIsExpanded(true)}>
-            <Text
-              onPress={() => setIsExpanded(true)}
-              style={[
-                styles.text,
-                {
-                  color: "#DB3C25",
-                  fontWeight: "500",
-                  fontFamily: "Poppins-Regular",
-                  fontSize: 12,
-                  lineHeight: 18,
-                  paddingLeft: 4,
-                },
-              ]}
-            >
-              Read more
-            </Text>
-          )}
-        </Text>
-      </View>
-    );
-  };
-
   return (
     <View style={styles.contentContainer}>
       <Carousel
         ref={(c: any) => (carouselRefs.current = c)}
         loop
-        data={Array.from(item.images)}
+        data={Array.from(Item.images)}
         renderItem={_renderItem}
         sliderWidth={304}
         itemWidth={304}
@@ -89,7 +52,7 @@ export const ProductItem = ({ item }: { item: MenuType }) => {
         onSnapToItem={(index) => setActiveSlide(index)}
       />
       <View style={styles.dots}>
-        {item.images.map((_, i) => (
+        {Item.images.map((_: number, i: number) => (
           <TouchableOpacity
             activeOpacity={1}
             key={i}
@@ -120,7 +83,7 @@ export const ProductItem = ({ item }: { item: MenuType }) => {
                 },
               ]}
             >
-              {item.name}
+              {Item.name}
             </Text>
             <Text
               style={[
@@ -133,45 +96,19 @@ export const ProductItem = ({ item }: { item: MenuType }) => {
                 },
               ]}
             >
-              &#163;{item.amount}
+              &#163;{Item.amount}
             </Text>
           </View>
 
-          <RenderTruncatedText text={item.details} />
+          <TruncatedText
+            text={Item.details}
+            isExpanded={isExpanded}
+            setIsExpanded={setIsExpanded}
+          />
         </View>
 
         <View style={styles.accordionContainer}>
-          <List.AccordionGroup>
-            {lists.map((list: any) => (
-              <List.Accordion
-                rippleColor={"transparent"}
-                titleStyle={{
-                  fontFamily: "Poppins-Medium",
-                  fontSize: 14,
-                  fontWeight: "500",
-                  color: "#151515",
-                }}
-                style={styles.list}
-                title={list.title}
-                id={list.id}
-                key={list.id}
-              >
-                <List.Item
-                  titleStyle={{
-                    fontWeight: "400",
-                    fontFamily: "Poppins-Regular",
-                    fontSize: 12,
-                    color: "#4A4A4A",
-                    lineHeight: 18,
-                  }}
-                  titleNumberOfLines={4}
-                  title={
-                    "List.Accordion can be wrapped because implementation uses React.Context."
-                  }
-                />
-              </List.Accordion>
-            ))}
-          </List.AccordionGroup>
+          <AccordionGroup />
         </View>
 
         <View

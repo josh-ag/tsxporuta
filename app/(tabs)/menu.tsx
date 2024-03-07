@@ -3,7 +3,7 @@ import { Alert, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { HeaderComponent } from "../Components/Header";
 import { SearchComponent } from "../Components/SearchComponent";
-import { MenuItem } from "../Components/menuItem";
+import { MenuItem } from "../Components/MenuItem";
 import { AppContext } from "../../context/appContext";
 import { MenuType } from "../../type";
 

@@ -14,3 +14,20 @@ export type MenuType = {
   variant?: string;
   details: string;
 };
+
+export type ProductPropType = {
+  item: any;
+  activeSlide: number;
+  isExpanded: Boolean;
+  setIsExpanded: (arg: Boolean) => void;
+  setActiveSlide: (arg: number) => void;
+};
+
+type AccordionPropTypes = {
+  title: string;
+  children: React.ReactNode;
+  expanded?: Boolean;
+  style?: any;
+  index?: number;
+  setExpanded?: () => void;
+};
