@@ -178,7 +178,6 @@ export default function TabLayout() {
     <>
       <SafeAreaProvider>
         <Tabs
-          initialRouteName="menu"
           backBehavior="none"
           tabBar={showKeyboard ? () => null : (props) => <TabBar {...props} />}
           screenOptions={{ headerShown: false }}

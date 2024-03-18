@@ -1,6 +1,8 @@
 import React from "react";
 
-export interface AppContextInterface {}
+export interface AppContextInterface {
+  menu: MenuType[];
+}
 
 export type ContextPropType = {
   children: React.ReactNode;

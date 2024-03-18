@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ScrollView, StyleSheet, View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { HeaderComponent } from "../Components/Header";
 import { router, useLocalSearchParams } from "expo-router";
 import { ProductItem } from "../Components/Product";
+import { AppContext } from "../../context/appContext";
+import { MenuType } from "../../type";
 
 export default function ProductsDetailsPage() {
   const [activeSlide, setActiveSlide] = useState<number>(0);
   const [isExpanded, setIsExpanded] = useState<Boolean>(false);
 
-  const { item, id } = useLocalSearchParams();
+  const { menu } = useContext(AppContext);
+  const { id } = useLocalSearchParams();
 
-  if (!item) {
+  const isMatch = menu.filter((it: MenuType) => it.id === id);
+
+  if (!id) {
     return (
       <View>
         <Text style={styles.text}>Oops! Something went wrong</Text>
@@ -28,7 +33,7 @@ export default function ProductsDetailsPage() {
       >
         <HeaderComponent canGoBack={router.canGoBack()} onPress={router.back} />
         <ProductItem
-          item={item}
+          item={isMatch[0]}
           activeSlide={activeSlide}
           setActiveSlide={setActiveSlide}
           isExpanded={isExpanded}

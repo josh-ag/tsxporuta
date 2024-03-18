@@ -24,8 +24,6 @@ export const ProductItem = ({
   isExpanded,
   setIsExpanded,
 }: ProductPropType) => {
-  const Item = JSON.parse(item);
-
   // @carousel refs
   const carouselRefs = useRef(null);
 
@@ -43,7 +41,7 @@ export const ProductItem = ({
       <Carousel
         ref={(c: any) => (carouselRefs.current = c)}
         loop
-        data={Array.from(Item.images)}
+        data={Array.from(item.images)}
         renderItem={_renderItem}
         sliderWidth={304}
         itemWidth={304}
@@ -52,7 +50,7 @@ export const ProductItem = ({
         onSnapToItem={(index) => setActiveSlide(index)}
       />
       <View style={styles.dots}>
-        {Item.images.map((_: number, i: number) => (
+        {item.images.map((_: number, i: number) => (
           <TouchableOpacity
             activeOpacity={1}
             key={i}
@@ -83,7 +81,7 @@ export const ProductItem = ({
                 },
               ]}
             >
-              {Item.name}
+              {item.name}
             </Text>
             <Text
               style={[
@@ -96,12 +94,12 @@ export const ProductItem = ({
                 },
               ]}
             >
-              &#163;{Item.amount}
+              &#163;{item.amount}
             </Text>
           </View>
 
           <TruncatedText
-            text={Item.details}
+            text={item.details}
             isExpanded={isExpanded}
             setIsExpanded={setIsExpanded}
           />

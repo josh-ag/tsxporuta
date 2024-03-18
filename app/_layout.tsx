@@ -1,6 +1,7 @@
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { AppContextProvider } from "../context/appContext";
+import TabLayout from "./(tabs)/_layout";
 
 export default function RootLayout() {
   //@load font
@@ -22,7 +23,7 @@ export default function RootLayout() {
 
   return (
     <AppContextProvider>
-      <Stack screenOptions={{ headerShown: false }}>
+      <Stack screenOptions={{ headerShown: false }} initialRouteName="menu">
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="products/[id]" />
       </Stack>

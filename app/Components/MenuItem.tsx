@@ -1,19 +1,24 @@
 import Svg, { Path } from "react-native-svg";
 import { MenuType } from "../../type";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { router } from "expo-router";
+import { router, Link } from "expo-router";
 
 export const MenuItem = ({ item }: { item: MenuType }) => {
-  const itemObj = JSON.stringify(item);
-
   return (
+    // <Link
+    //   asChild
+    //   href={{
+    //     pathname: "products/[id]",
+    //     params: { id: item.id },
+    //   }}
+    // >
     <TouchableOpacity
       activeOpacity={1}
       style={styles.menuItem}
       onPress={() =>
         router.push({
           pathname: "products/[id]",
-          params: { item: itemObj, id: item.id },
+          params: { id: item.id },
         })
       }
     >
@@ -107,6 +112,7 @@ export const MenuItem = ({ item }: { item: MenuType }) => {
         </Text>
       </TouchableOpacity>
     </TouchableOpacity>
+    // </Link>
   );
 };
 
